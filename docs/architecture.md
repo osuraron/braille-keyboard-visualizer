@@ -58,7 +58,7 @@ All of these except `cells` persist to localStorage under `braille-keyboard-visu
 Validation runs at two different points:
 
 - **On write, key bindings only.** getKeymapValidationError() rejects a rebind that is not a single printable key, or that collides with an existing dot or side-button assignment; the change is discarded and an error string is returned to the control panel. No other setting is validated on write.
-- **On read, everything.** loadSettings() runs sanitiseSettings(), which checks each mode's geometry (indent −1…1, angleDeg 0…35, keyDia 0.4…0.62), coerces the booleans, and falls back to the default key maps if the stored maps are incomplete, duplicated or conflicting.
+- **On read, everything.** loadSettings() runs sanitiseSettings(), which checks each mode's geometry (indent −1…1, angleDeg 0…35, keyDia 0.4…0.62), falls back to defaults for invalid booleans, and falls back to the default key maps if the stored maps are incomplete, duplicated or conflicting.
 
 Settings flow down to KeyboardScene as sceneSettings (a flattened, mode-agnostic copy created by createSceneSettings). Key mappings are read live off the runtime state object by the interaction controller, so remapping is instant; no scene rebuild needed.
 
@@ -114,7 +114,7 @@ KeyboardScene is rendered unconditionally and stays mounted for the app lifetime
 
 On a successful mount the effect sets up:
 
-1. WebGL detection via supportsWebGL() — rejects degraded/software contexts
+1. WebGL detection via supportsWebGL() — obtains a WebGL context and verifies high-float shader precision
 2. Scene, renderer, camera, controls
 3. Device geometry
 4. Interaction handler
