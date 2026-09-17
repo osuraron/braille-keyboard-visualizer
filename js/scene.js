@@ -169,7 +169,6 @@ export function createScene(canvas) {
     getOrbitView,
     nudgeOrbit,
     orbitTo,
-    orbitToDirection,
     render,
     renderer,
     resize,
