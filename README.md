@@ -43,21 +43,19 @@ npm start
 
 ~~~text
 app/
-  layout.js              Shared metadata and global styles
-  page.js                Home route
-components/
-  braille-keyboard-visualiser.jsx
-  control-panel.jsx
-  keyboard-hud.jsx
-  keyboard-scene.jsx
-  orbit-gizmo.jsx
+  layout.tsx             Shared metadata and global styles
+  page.tsx               Home route
 lib/
-  visualiser-settings.js Persistence and validation
-js/
-  config.js              Braille data and input defaults
-  scene.js               Camera, lighting and renderer
-  interactions.js        Keyboard and pointer behaviour
-  device/                Keyboard meshes and layout modes
+  body/                  Device materials, bodies, and layout helpers
+  components/            UI and 3D viewport components (visualiser, panel, hud, scene)
+  config/                Braille mappings and layout constants
+  device/                Device controller and cell geometry
+  interaction/           Interaction controller and chord engine
+  mode/                  Keyboard layout mode strategies
+  scene/                 Three.js scene, camera, and lighting
+  settings/              Persistence and validation
+  types/                 TypeScript type declarations
+  utils/                 Three.js utilities and text sprites
 ~~~
 
 ## Input

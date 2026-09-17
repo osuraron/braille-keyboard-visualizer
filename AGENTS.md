@@ -35,19 +35,23 @@ build on pushes to main.
 
 ## Project shape
 
-- app/layout.js sets shared metadata and imports global styles.
-- app/page.js is the server route entry point.
+- app/layout.tsx sets shared metadata and imports global styles.
+- app/page.tsx is the server route entry point.
 - app/globals.css contains all application styling.
-- components/braille-keyboard-visualiser.jsx owns React state and composes the screen.
-- components/control-panel.jsx renders settings and key-mapping controls.
-- components/keyboard-hud.jsx renders current chord and typed output.
-- components/keyboard-scene.jsx owns the browser-only Three.js lifecycle.
-- components/orbit-gizmo.jsx is the React orbit control overlay.
-- lib/visualiser-settings.js validates and persists user preferences.
-- js/config.js holds braille mappings, key defaults and shared dimensions.
-- js/scene.js creates the Three.js renderer, camera, controls and lighting.
-- js/interactions.js handles keyboard and pointer input, then reports state to React.
-- js/device contains the reusable device geometry, modes and animation logic.
+- lib/components/ owns all React interface and 3D viewport components:
+  - lib/components/visualiser/ owns React state and composes the screen.
+  - lib/components/panel/ renders settings and key-mapping controls.
+  - lib/components/hud/ renders current chord and typed output.
+  - lib/components/scene/ owns the browser-only Three.js scene lifecycle and orbit gizmo.
+- lib/body/ contains 3D device materials, body meshes, and procedural slab/extrusions.
+- lib/mode/ contains layout strategies and classes for each mode.
+- lib/device/ contains device controllers, cell construction, and animation runtime.
+- lib/interaction/ contains keyboard/pointer handlers, chord buffers, and typing engine.
+- lib/scene/ creates the Three.js renderer, camera, controls, and lighting.
+- lib/settings/ validates and persists user preferences.
+- lib/config/ holds braille mappings, key defaults, and shared dimensions.
+- lib/types/ defines all TypeScript interfaces across the codebase.
+- lib/utils/ holds Three.js helpers and text sprite generation.
 
 ## Application flow
 
