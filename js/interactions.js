@@ -1,6 +1,5 @@
 import { THREE } from "./deps.js";
 import { BRAILLE_MAP } from "./config.js";
-import { sortNumeric } from "./utils.js";
 
 const EMPTY_DISPLAY = "—";
 const SIDE_HOLD_MS = 180;
@@ -13,6 +12,7 @@ export function createInteractionController({
   state,
   onStateChange,
 }) {
+  const abortController = new AbortController();
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
   const sideHoldTimers = { left: null, right: null };
@@ -22,7 +22,6 @@ export function createInteractionController({
     startX: 0,
     startY: 0,
   };
-  const listeners = [];
 
   bindKeyboardEvents();
   bindPointerEvents();
@@ -40,16 +39,11 @@ export function createInteractionController({
   };
 
   function listen(target, eventName, handler) {
-    target.addEventListener(eventName, handler);
-    listeners.push(function removeListener() {
-      target.removeEventListener(eventName, handler);
-    });
+    target.addEventListener(eventName, handler, { signal: abortController.signal });
   }
 
   function dispose() {
-    listeners.forEach(function removeListener(remove) {
-      remove();
-    });
+    abortController.abort();
     clearSideHoldTimer("left");
     clearSideHoldTimer("right");
     canvas.classList.remove("hit");
@@ -135,7 +129,7 @@ export function createInteractionController({
   }
 
   function activeChordString() {
-    return Array.from(state.activeDots).sort(sortNumeric).join("");
+    return Array.from(state.activeDots).sort((a, b) => a - b).join("");
   }
 
   function commitChord() {
@@ -159,7 +153,7 @@ export function createInteractionController({
   }
 
   function publishState() {
-    const dots = Array.from(state.activeDots).sort(sortNumeric);
+    const dots = Array.from(state.activeDots).sort((a, b) => a - b);
     const chord = dots.join("");
     const letter = BRAILLE_MAP[chord];
 
