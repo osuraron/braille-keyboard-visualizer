@@ -1,5 +1,4 @@
 export const DOT_SPACING = 0.7;
-export const CELL_GAP = 0.75;
 export const CELL_WIDTH = DOT_SPACING;
 export const KEY_HEIGHT = 0.12;
 export const KEY_RISE_MAX = 0.14;

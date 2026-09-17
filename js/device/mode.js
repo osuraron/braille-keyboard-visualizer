@@ -14,8 +14,8 @@ export class DeviceMode {
     return controlSurface;
   }
 
-  buildCell(cellIndex, state, materials) {
-    return buildCell(cellIndex, state.keyDia, materials, {
+  buildCell(state, materials) {
+    return buildCell(state.keyDia, materials, {
       baseOffset: this.layout.dotBaseOffset,
       getDotOffset: this.getDotOffset.bind(this),
       rotationX: this.layout.dotRotationX,
@@ -39,14 +39,6 @@ export class DeviceMode {
       offsetZ: this.layout.sideOffsetZ || 0,
       rotationX: this.layout.sideRotationX,
       width: sideWidth,
-    };
-  }
-
-  getCellPosition(index) {
-    return {
-      x: this.metrics.originX + index * this.metrics.pitch,
-      y: 0,
-      z: 0,
     };
   }
 }

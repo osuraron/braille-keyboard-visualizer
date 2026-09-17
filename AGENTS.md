@@ -73,8 +73,8 @@ braille-keyboard-visualiser.settings. They include:
 - overlay visibility
 - dot and side-button key mappings
 
-These settings rebuild the device: mode, incline angle, key diameter, side
-buttons and cell count. Key indent and overlay visibility update existing meshes
+These settings rebuild the device: mode, incline angle, key diameter and side
+buttons. Key indent and overlay visibility update existing meshes
 in place.
 
 Runtime-only state includes active dots, held keys, typed characters and pressed

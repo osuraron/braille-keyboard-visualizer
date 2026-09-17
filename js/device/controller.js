@@ -1,6 +1,5 @@
 import { THREE } from "../deps.js";
 import {
-  CELL_GAP,
   CELL_WIDTH,
   KEY_RISE_MAX,
   LETTER_TO_DOTS,
@@ -56,7 +55,7 @@ export function createDeviceController({ root, state }) {
     const controlSurface = mode.createControlSurface();
     deck.add(controlSurface);
 
-    const cellsGroup = buildCellsGroup(metrics, state, materials, mode);
+    const cellsGroup = buildCellsGroup(state, materials, mode);
     controlSurface.add(cellsGroup);
 
     const sideButtons = buildSideButtons({
@@ -259,30 +258,18 @@ export function createDeviceController({ root, state }) {
 }
 
 function getDeviceMetrics(state, mode) {
-  const pitch = CELL_WIDTH + CELL_GAP;
-  const cellsWidth = pitch * (state.cells - 1) + CELL_WIDTH;
   const sidePadding = getSidePadding(state);
 
   return {
     bodyDepth: mode.layout.bodyDepth,
     bodyHeight: mode.layout.bodyHeight,
-    bodyWidth: cellsWidth + sidePadding * 2 + 0.3,
-    cellsWidth,
-    originX: -cellsWidth / 2 + CELL_WIDTH / 2,
-    pitch,
+    bodyWidth: CELL_WIDTH + sidePadding * 2 + 0.3,
   };
 }
 
-function buildCellsGroup(metrics, state, materials, mode) {
+function buildCellsGroup(state, materials, mode) {
   const cellsGroup = new THREE.Group();
-
-  for (let index = 0; index < state.cells; index += 1) {
-    const cell = mode.buildCell(index, state, materials);
-    const cellPosition = mode.getCellPosition(index);
-    cell.position.set(cellPosition.x, cellPosition.y, cellPosition.z);
-    cellsGroup.add(cell);
-  }
-
+  cellsGroup.add(mode.buildCell(state, materials));
   return cellsGroup;
 }
 

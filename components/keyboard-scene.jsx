@@ -193,7 +193,6 @@ function requiresRebuild(previousSettings, nextSettings) {
     previousSettings.mode !== nextSettings.mode ||
     previousSettings.angleDeg !== nextSettings.angleDeg ||
     previousSettings.keyDia !== nextSettings.keyDia ||
-    previousSettings.cells !== nextSettings.cells ||
     previousSettings.showSides !== nextSettings.showSides
   );
 }
