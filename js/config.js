@@ -95,11 +95,6 @@ export function normaliseDotKey(key) {
   return normalisedKey.trim() ? normalisedKey : null;
 }
 
-export function isAssignableDotKey(key) {
-  const normalisedKey = normaliseDotKey(key);
-  return Boolean(normalisedKey);
-}
-
 export function getDotOffset(position) {
   const x = position.col * DOT_SPACING - DOT_SPACING / 2;
 

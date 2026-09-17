@@ -4,13 +4,13 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ControlPanel } from "./control-panel";
 import { KeyboardHud } from "./keyboard-hud";
+import { normaliseDotKey } from "../js/config.js";
 import {
   createDefaultSettings,
   createSceneSettings,
   getActiveGeometry,
   getKeymapValidationError,
   loadSettings,
-  normaliseKeyBinding,
   persistSettings,
   updateKeyBinding,
 } from "../lib/visualiser-settings";
@@ -101,7 +101,7 @@ export function BrailleKeyboardVisualiser() {
   }, []);
 
   const handleKeyBinding = useCallback(function handleKeyBinding(binding, rawKey) {
-    const key = normaliseKeyBinding(rawKey);
+    const key = normaliseDotKey(rawKey);
     const error = getKeymapValidationError(settings, binding, key);
 
     if (error) {
