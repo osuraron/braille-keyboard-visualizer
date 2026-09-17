@@ -29,12 +29,10 @@ export class ArcMode extends DeviceMode {
   }
 
   createLayout() {
-    const bodyHeight = this.metrics.bodyHeight ?? BODY_HEIGHT;
-
     return {
-      bodyDepth: this.metrics.bodyDepth ?? BODY_DEPTH,
-      bodyHeight: this.metrics.bodyHeight ?? BODY_HEIGHT,
-      controlSurfacePositionY: bodyHeight,
+      bodyDepth: BODY_DEPTH,
+      bodyHeight: BODY_HEIGHT,
+      controlSurfacePositionY: BODY_HEIGHT,
       controlSurfaceRotationX: 0,
       dotBaseOffset: DOT_BASE_OFFSET,
       dotRotationX: 0,

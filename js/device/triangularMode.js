@@ -15,15 +15,11 @@ export class TriangularMode extends DeviceMode {
   }
 
   createLayout() {
-    const bodyDepth = this.metrics.bodyDepth ?? BODY_DEPTH;
-    const bodyHeight = this.metrics.bodyHeight ?? BODY_HEIGHT;
-    const surfaceAngle = Math.atan2(bodyHeight, bodyDepth);
-
     return {
-      bodyDepth,
-      bodyHeight,
-      controlSurfacePositionY: bodyHeight / 2,
-      controlSurfaceRotationX: surfaceAngle,
+      bodyDepth: BODY_DEPTH,
+      bodyHeight: BODY_HEIGHT,
+      controlSurfacePositionY: BODY_HEIGHT / 2,
+      controlSurfaceRotationX: Math.atan2(BODY_HEIGHT, BODY_DEPTH),
       dotBaseOffset: KEY_HEIGHT / 2,
       dotRotationX: 0,
       sideBaseOffset: SIDE_BASE_OFFSET,

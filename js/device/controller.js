@@ -47,8 +47,9 @@ export function createDeviceController({ root, state }) {
   function buildDevice() {
     disposeGroup(root);
 
-    const metrics = getDeviceMetrics(state);
-    const mode = createDeviceMode(state.mode, metrics);
+    const mode = createDeviceMode(state.mode);
+    const metrics = getDeviceMetrics(state, mode);
+    mode.metrics = metrics;
     const deck = new THREE.Group();
     deck.add(mode.buildBody(materials));
 
@@ -257,11 +258,10 @@ export function createDeviceController({ root, state }) {
   }
 }
 
-function getDeviceMetrics(state) {
+function getDeviceMetrics(state, mode) {
   const pitch = CELL_WIDTH + CELL_GAP;
   const cellsWidth = pitch * (state.cells - 1) + CELL_WIDTH;
   const sidePadding = getSidePadding(state);
-  const mode = createDeviceMode(state.mode, {});
 
   return {
     bodyDepth: mode.layout.bodyDepth,

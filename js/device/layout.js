@@ -17,7 +17,7 @@ export function buildSideButtons(options) {
       Math.min(spec.width, spec.depth) / 2
     );
     const sideGeometry = extrudedSlab(sideShape, spec.height, 0.025);
-    const button = new THREE.Mesh(sideGeometry.clone(), materials.sideButton);
+    const button = new THREE.Mesh(sideGeometry, materials.sideButton);
     button.castShadow = true;
     button.receiveShadow = true;
     button.rotation.x = spec.rotationX;

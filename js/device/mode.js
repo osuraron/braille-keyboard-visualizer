@@ -2,11 +2,7 @@ import { THREE } from "../deps.js";
 import { buildCell } from "./cell.js";
 
 export class DeviceMode {
-  constructor(metrics) {
-    if (new.target === DeviceMode) {
-      throw new Error("DeviceMode is abstract and cannot be instantiated directly.");
-    }
-
+  constructor(metrics = {}) {
     this.metrics = metrics;
     this.layout = this.createLayout();
   }
@@ -24,14 +20,6 @@ export class DeviceMode {
       getDotOffset: this.getDotOffset.bind(this),
       rotationX: this.layout.dotRotationX,
     });
-  }
-
-  createLayout() {
-    throw new Error("DeviceMode subclasses must implement createLayout().");
-  }
-
-  buildBody() {
-    throw new Error("DeviceMode subclasses must implement buildBody().");
   }
 
   getSideBaseY() {
@@ -60,13 +48,5 @@ export class DeviceMode {
       y: 0,
       z: 0,
     };
-  }
-
-  getDotOffset() {
-    throw new Error("DeviceMode subclasses must implement getDotOffset().");
-  }
-
-  getTiltAngle() {
-    throw new Error("DeviceMode subclasses must implement getTiltAngle().");
   }
 }
