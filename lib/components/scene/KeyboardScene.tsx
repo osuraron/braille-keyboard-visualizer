@@ -171,6 +171,7 @@ export function KeyboardScene({
     runtimeState.showLetters = settings.showLetters;
     runtimeState.keyToDot = { ...settings.keyToDot };
     runtimeState.sideKeys = { ...settings.sideKeys };
+    runtimeState.sideActions = { ...settings.sideActions };
 
     if (modeChanged || angleChanged || keyDiaChanged || sidesChanged) {
       device.buildDevice();
@@ -224,6 +225,7 @@ function createRuntimeState(settings: SceneSettings): RuntimeInteractionState {
     showLetters: settings.showLetters,
     showNumbers: settings.showNumbers,
     showSides: settings.showSides,
+    sideActions: { ...settings.sideActions },
     sideKeys: { ...settings.sideKeys },
     sidePressed: {
       left: false,

@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { createDotToKeyMap, formatKeyLabel } from "../../config";
+import { SIDE_ACTIONS, createDotToKeyMap, formatKeyLabel } from "../../config";
 import type {
   CameraViewName,
   GeometrySettings,
   KeyBindingSpec,
   ModeName,
+  SideAction,
   VisualiserSettings,
 } from "../../types";
 
@@ -63,6 +64,7 @@ export interface ControlPanelProps {
     binding: KeyBindingSpec,
     key: string
   ) => { error?: string; message?: string };
+  onSideAction: (side: "left" | "right", action: SideAction) => void;
   onResetKeymap: () => void;
   onCameraView: (view: CameraViewName) => void;
   onSnapshot: () => void;
@@ -77,6 +79,7 @@ export function ControlPanel({
   onGeometryChange,
   onOverlayChange,
   onKeyBinding,
+  onSideAction,
   onResetKeymap,
   onCameraView,
   onSnapshot,
@@ -229,7 +232,9 @@ export function ControlPanel({
           <div className="keymap-summary__row">
             <kbd>{formatKeyLabel(settings.sideKeys.left)}</kbd>
             <kbd>{formatKeyLabel(settings.sideKeys.right)}</kbd>
-            <span>Side delete · space</span>
+            <span>
+              Side {settings.sideActions.left} · {settings.sideActions.right}
+            </span>
           </div>
           <div className="keymap-summary__row">
             <kbd>Space</kbd>
@@ -265,6 +270,23 @@ export function ControlPanel({
               />
             );
           })}
+        </div>
+        <div className="keymap-fields">
+          {(["left", "right"] as const).map((side) => (
+            <label className="keymap-field" key={side}>
+              <span>{side === "left" ? "Left side action" : "Right side action"}</span>
+              <select
+                value={settings.sideActions[side]}
+                onChange={(event) => onSideAction(side, event.target.value as SideAction)}
+              >
+                {SIDE_ACTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ))}
         </div>
         <p
           className={"control-panel__hint keymap-status" + (hasKeymapError ? " is-error" : "")}

@@ -90,14 +90,16 @@ state-change callback.
 ~~~text
 F D S  -> dots 1 2 3
 J K L  -> dots 4 5 6
-A      -> left side action
-;      -> right side action
+A      -> left side action (default Backspace)
+;      -> right side action (default Space)
 Space  -> commit a chord or add a space
 Esc    -> clear the active chord
 Backspace -> delete the previous typed character
 ~~~
 
-Every dot and side-button shortcut is configurable. A key may only be assigned
+Every dot and side-button shortcut is configurable, and each side button can
+be set to Backspace, Space or Enter (a new line). Shift is deliberately absent
+because output is uppercase only. Keyboard and 3D clicks share one action path. A key may only be assigned
 once.
 
 ## Common changes

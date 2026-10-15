@@ -357,7 +357,8 @@ kbd {
   font-size: 0.6875rem;
 }
 
-.keymap-field input {
+.keymap-field input,
+.keymap-field select {
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 0.5rem;
@@ -461,6 +462,7 @@ kbd {
   font-variant-numeric: tabular-nums;
   line-height: 1.2;
   overflow-wrap: anywhere;
+  white-space: pre-wrap;
 }
 
 .orbit-gizmo {

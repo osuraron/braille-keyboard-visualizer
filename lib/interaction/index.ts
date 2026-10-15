@@ -142,12 +142,14 @@ export function createInteractionController({
       return;
     }
 
-    if (side === "left") {
+    const action = state.sideActions[side];
+    if (action === "backspace") {
       backspace();
-      return;
+    } else if (action === "enter") {
+      appendNewline();
+    } else {
+      appendSpace();
     }
-
-    appendSpace();
   }
 
   function backspace(): void {
@@ -161,6 +163,11 @@ export function createInteractionController({
 
   function appendSpace(): void {
     state.typed += " ";
+    publishState();
+  }
+
+  function appendNewline(): void {
+    state.typed += "\n";
     publishState();
   }
 

@@ -12,6 +12,8 @@ export type ModeGeometryMap = Record<ModeName, GeometrySettings>;
 
 export type KeyToDotMap = Record<string, number>;
 export type SideKeysMap = Record<"left" | "right", string>;
+export type SideAction = "backspace" | "space" | "enter";
+export type SideActionsMap = Record<"left" | "right", SideAction>;
 
 export interface VisualiserSettings {
   mode: ModeName;
@@ -21,6 +23,7 @@ export interface VisualiserSettings {
   showLetters: boolean;
   keyToDot: KeyToDotMap;
   sideKeys: SideKeysMap;
+  sideActions: SideActionsMap;
 }
 
 export interface SceneSettings extends VisualiserSettings {
@@ -101,6 +104,7 @@ export interface RuntimeInteractionState {
   showLetters: boolean;
   showNumbers: boolean;
   showSides: boolean;
+  sideActions: SideActionsMap;
   sideKeys: SideKeysMap;
   sidePressed: {
     left: boolean;

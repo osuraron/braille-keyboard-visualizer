@@ -1,3 +1,5 @@
+import type { SideAction, SideActionsMap } from "../types";
+
 export const DOT_SPACING = 0.7;
 export const CELL_WIDTH = DOT_SPACING;
 export const KEY_HEIGHT = 0.12;
@@ -74,6 +76,17 @@ export const DEFAULT_KEY_TO_DOT: Readonly<Record<string, number>> = Object.freez
 export const DEFAULT_SIDE_KEYS: Readonly<{ left: string; right: string }> = Object.freeze({
   left: "a",
   right: ";",
+});
+
+export const SIDE_ACTIONS: readonly { value: SideAction; label: string }[] = Object.freeze([
+  { value: "backspace", label: "Backspace" },
+  { value: "space", label: "Space" },
+  { value: "enter", label: "Enter" },
+]);
+
+export const DEFAULT_SIDE_ACTIONS: Readonly<SideActionsMap> = Object.freeze({
+  left: "backspace",
+  right: "space",
 });
 
 export const SIDE_NAMES = Object.freeze(["left", "right"] as const);

@@ -22,6 +22,7 @@ import type {
   KeyBindingSpec,
   ModeName,
   SceneApi,
+  SideAction,
   VisualiserSettings,
 } from "../../types";
 
@@ -131,6 +132,16 @@ export function BrailleKeyboardVisualiser() {
     [settings]
   );
 
+  const handleSideAction = useCallback(
+    (side: "left" | "right", action: SideAction) => {
+      setSettings((currentSettings) => ({
+        ...currentSettings,
+        sideActions: { ...currentSettings.sideActions, [side]: action },
+      }));
+    },
+    []
+  );
+
   const handleResetKeymap = useCallback(() => {
     setSettings((currentSettings) => {
       const defaults = createDefaultSettings();
@@ -138,6 +149,7 @@ export function BrailleKeyboardVisualiser() {
         ...currentSettings,
         keyToDot: defaults.keyToDot,
         sideKeys: defaults.sideKeys,
+        sideActions: defaults.sideActions,
       };
     });
   }, []);
@@ -176,6 +188,7 @@ export function BrailleKeyboardVisualiser() {
         onGeometryChange={handleGeometryChange}
         onOverlayChange={handleOverlayChange}
         onKeyBinding={handleKeyBinding}
+        onSideAction={handleSideAction}
         onResetKeymap={handleResetKeymap}
         onCameraView={handleCameraView}
         onSnapshot={handleSnapshot}

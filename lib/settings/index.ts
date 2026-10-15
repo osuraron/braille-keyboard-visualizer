@@ -1,7 +1,9 @@
 import {
   DEFAULT_KEY_TO_DOT,
+  DEFAULT_SIDE_ACTIONS,
   DEFAULT_SIDE_KEYS,
   DOT_NUMBERS,
+  SIDE_ACTIONS,
   SIDE_NAMES,
   normaliseDotKey,
 } from "../config";
@@ -12,6 +14,7 @@ import type {
   ModeGeometryMap,
   ModeName,
   SceneSettings,
+  SideActionsMap,
   SideKeysMap,
   VisualiserSettings,
 } from "../types";
@@ -39,6 +42,7 @@ export function createDefaultSettings(): VisualiserSettings {
     showLetters: false,
     keyToDot: { ...DEFAULT_KEY_TO_DOT },
     sideKeys: { ...DEFAULT_SIDE_KEYS },
+    sideActions: { ...DEFAULT_SIDE_ACTIONS },
   };
 }
 
@@ -71,6 +75,7 @@ export function persistSettings(settings: VisualiserSettings): void {
         showLetters: settings.showLetters,
         keyToDot: settings.keyToDot,
         sideKeys: settings.sideKeys,
+        sideActions: settings.sideActions,
       })
     );
   } catch {
@@ -181,6 +186,7 @@ function sanitiseSettings(rawSettings: any): VisualiserSettings {
     showLetters: readBoolean(rawSettings.showLetters, defaults.showLetters),
     keyToDot: hasMappingConflict ? { ...DEFAULT_KEY_TO_DOT } : keyToDot,
     sideKeys: hasMappingConflict ? { ...DEFAULT_SIDE_KEYS } : sideKeys,
+    sideActions: sanitiseSideActions(rawSettings.sideActions),
   };
 }
 
@@ -280,4 +286,14 @@ function readNumber(value: any, fallback: number, minimum: number, maximum: numb
     value <= maximum
     ? value
     : fallback;
+}
+
+function sanitiseSideActions(rawSideActions: any): SideActionsMap {
+  const isAction = (action: unknown) =>
+    SIDE_ACTIONS.some((option) => option.value === action);
+
+  return {
+    left: isAction(rawSideActions?.left) ? rawSideActions.left : DEFAULT_SIDE_ACTIONS.left,
+    right: isAction(rawSideActions?.right) ? rawSideActions.right : DEFAULT_SIDE_ACTIONS.right,
+  };
 }
